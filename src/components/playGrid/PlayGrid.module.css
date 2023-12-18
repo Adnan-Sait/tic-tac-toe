@@ -1,0 +1,102 @@
+:root {
+  --board-border-size: 10px;
+  --board-symbol-width: 10px;
+  --board-symbol-color: var(--app-color-board);
+}
+
+.playGrid {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--board-border-size);
+}
+
+.gridItem {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  aspect-ratio: 1.2;
+}
+
+.gridItem::before,
+.gridItem::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  background-color: var(--app-color-board);
+}
+
+.gridItem::before {
+  width: 100%;
+  height: var(--board-border-size);
+  left: 0;
+  bottom: 0;
+  translate: 0 100%;
+}
+
+.gridItem::after {
+  height: calc(100% + var(--board-border-size));
+  width: var(--board-border-size);
+  top: 0;
+  right: 0;
+  translate: 100% 0;
+}
+
+.gridItem:nth-child(1):before,
+.gridItem:nth-child(4):before {
+  border-radius: var(--board-border-size) 0 0 var(--board-border-size);
+}
+
+.gridItem:nth-child(3):before,
+.gridItem:nth-child(6):before {
+  border-radius: 0 var(--board-border-size) var(--board-border-size) 0;
+}
+
+.gridItem:nth-child(1):after,
+.gridItem:nth-child(2):after {
+  border-radius: var(--board-border-size) var(--board-border-size) 0 0;
+}
+
+.gridItem:nth-child(7):after,
+.gridItem:nth-child(8):after {
+  height: 100%;
+  border-radius: 0 0 var(--board-border-size) var(--board-border-size);
+}
+
+.symbol {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
+.symbol::before,
+.symbol::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.symbol[data-symbol="o"]::after {
+  height: 45%;
+  border: var(--board-border-size) solid var(--board-symbol-color);
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+.symbol[data-symbol="x"]::before,
+.symbol[data-symbol="x"]::after {
+  height: 80%;
+  width: var(--board-border-size);
+  background-color: var(--board-symbol-color);
+}
+
+.symbol[data-symbol="x"]::before {
+  rotate: 45deg;
+}
+
+.symbol[data-symbol="x"]::after {
+  rotate: -45deg;
+}
