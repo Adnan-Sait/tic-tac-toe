@@ -14,7 +14,7 @@
 }
 
 .activePlayer p {
-  color: green;
+  color: var(--app-color-player-active);
 }
 
 .winOverlay {

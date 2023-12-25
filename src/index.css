@@ -3,6 +3,7 @@
   --app-color-secondary: #444545;
   --app-color-board: #774512;
   --app-color-text: rgba(0 0 0 / 87%);
+  --app-color-player-active: green;
 }
 
 * {
