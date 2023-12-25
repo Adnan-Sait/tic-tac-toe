@@ -74,9 +74,9 @@ function PlayArea() {
   const [gameEnd, setGameEnd] = useState(false);
 
   /**
-   * @type {[Number[][], React.Dispatch<Number[][]>]}
+   * @type {[WinningSequence, React.Dispatch<WinningSequence>]}
    */
-  const [winningSequence, setWinningSequence] = useState([]);
+  const [winningSequence, setWinningSequence] = useState({});
 
   const activePlayer = player1.isTurn ? player1 : player2;
 
@@ -101,13 +101,13 @@ function PlayArea() {
           return { ...state, symbol: "x", isTurn: true };
         });
         setPlayer2((state) => {
-          return { ...state, symbol: "o" };
+          return { ...state, symbol: "o", isTurn: false };
         });
         break;
       }
       case "player2": {
         setPlayer1((state) => {
-          return { ...state, symbol: "o" };
+          return { ...state, symbol: "o", isTurn: false };
         });
         setPlayer2((state) => {
           return { ...state, symbol: "x", isTurn: true };
@@ -120,7 +120,7 @@ function PlayArea() {
   }, [xSymbolPlayer]);
 
   useEffect(() => {
-    if (gameEnd && winningSequence.length > 0) {
+    if (gameEnd && winningSequence?.type) {
       if (activePlayer === player1) {
         setPlayer1((state) => {
           return { ...state, wins: state.wins + 1 };
@@ -170,7 +170,7 @@ function PlayArea() {
   function handleRestartGameClick() {
     setGameEnd(false);
     dispatchGrid({ type: "clear-all-cells" });
-    setWinningSequence([]);
+    setWinningSequence({});
 
     if (xSymbolPlayer === "player1") {
       setXSymbolPlayer("player2");
@@ -183,7 +183,7 @@ function PlayArea() {
    * Checks game status.
    */
   function checkGameStatus() {
-    if (gameEnd && winningSequence.length > 0) {
+    if (gameEnd && winningSequence?.type) {
       return "win";
     } else if (gameEnd) {
       return "draw";
@@ -248,7 +248,11 @@ function PlayArea() {
           <p>Wins: {player2.wins}</p>
         </div>
       </section>
-      <PlayGrid gridState={gridState} selectCell={selectCell} />
+      <PlayGrid
+        gridState={gridState}
+        selectCell={selectCell}
+        winningSequence={winningSequence}
+      />
 
       {gameEnd && gameCompleteJsx()}
     </div>

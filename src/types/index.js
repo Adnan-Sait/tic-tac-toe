@@ -22,3 +22,9 @@
  * @property {Player} player Player who made the selection.
  * @property {Number[]} cellIndex Indices of the selected cell.
  */
+
+/**
+ * @typedef {Object} WinningSequence
+ * @property {"row" | "column" | "diagonal-left" | "diagonal-right"} type
+ * @property {Number[][]} sequence
+ */
