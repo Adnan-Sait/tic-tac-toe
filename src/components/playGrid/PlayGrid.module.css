@@ -4,6 +4,22 @@
   --board-symbol-color: var(--app-color-board);
 }
 
+.wrapper {
+  position: relative;
+}
+
+.canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+
+.canvas.show {
+  z-index: 2;
+}
+
 .playGrid {
   display: grid;
   overflow: hidden;
