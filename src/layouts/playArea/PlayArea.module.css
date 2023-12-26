@@ -13,8 +13,12 @@
   margin-bottom: 1rem;
 }
 
-.activePlayer p {
+.activePlayer {
   color: var(--app-color-player-active);
+}
+
+.player .symbol {
+  text-transform: uppercase;
 }
 
 .winOverlay {

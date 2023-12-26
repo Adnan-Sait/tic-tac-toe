@@ -236,7 +236,10 @@ function PlayArea() {
             [styles.activePlayer]: activePlayer.name === player1.name,
           })}
         >
-          <p>{player1.name}</p>
+          <div>
+            <span>{player1.name}</span>
+            <span className={styles.symbol}>({player1.symbol})</span>
+          </div>
           <p>Wins: {player1.wins}</p>
         </div>
         <div
@@ -244,7 +247,10 @@ function PlayArea() {
             [styles.activePlayer]: activePlayer.name === player2.name,
           })}
         >
-          <p>{player2.name}</p>
+          <div>
+            <span>{player2.name}</span>
+            <span className={styles.symbol}>({player2.symbol})</span>
+          </div>
           <p>Wins: {player2.wins}</p>
         </div>
       </section>
