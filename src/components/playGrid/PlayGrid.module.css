@@ -2,6 +2,8 @@
   --board-border-size: 10px;
   --board-symbol-width: 10px;
   --board-symbol-color: var(--app-color-board);
+  --board-symbol-color-x: var(--app-color-board);
+  --board-symbol-color-o: var(--app-color-board);
 }
 
 .wrapper {
@@ -97,7 +99,7 @@
 
 .symbol[data-symbol="o"]::after {
   height: 45%;
-  border: var(--board-border-size) solid var(--board-symbol-color);
+  border: var(--board-border-size) solid var(--board-symbol-color-o);
   border-radius: 50%;
   aspect-ratio: 1;
 }
@@ -106,7 +108,7 @@
 .symbol[data-symbol="x"]::after {
   height: 80%;
   width: var(--board-border-size);
-  background-color: var(--board-symbol-color);
+  background-color: var(--board-symbol-color-x);
 }
 
 .symbol[data-symbol="x"]::before {

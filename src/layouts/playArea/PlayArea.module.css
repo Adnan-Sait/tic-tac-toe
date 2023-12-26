@@ -13,7 +13,15 @@
   margin-bottom: 1rem;
 }
 
-.activePlayer {
+.player.player1 {
+  color: var(--app-color-player1);
+}
+
+.player.player2 {
+  color: var(--app-color-player2);
+}
+
+.player.activePlayer {
   color: var(--app-color-player-active);
 }
 

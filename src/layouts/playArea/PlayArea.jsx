@@ -80,6 +80,14 @@ function PlayArea() {
 
   const activePlayer = player1.isTurn ? player1 : player2;
 
+  /**
+   * @type {SymbolColor} Specifies the color for each symbol.
+   */
+  const symbolColor = {
+    [player1.symbol]: "player1",
+    [player2.symbol]: "player2",
+  };
+
   const gameStatus = checkGameStatus();
 
   useEffect(() => {
@@ -232,7 +240,7 @@ function PlayArea() {
     <div className={styles.playAreaSection}>
       <section className={styles.playerInfo}>
         <div
-          className={classNames(styles.player, {
+          className={classNames(styles.player, styles.player1, {
             [styles.activePlayer]: activePlayer.name === player1.name,
           })}
         >
@@ -243,7 +251,7 @@ function PlayArea() {
           <p>Wins: {player1.wins}</p>
         </div>
         <div
-          className={classNames(styles.player, {
+          className={classNames(styles.player, styles.player2, {
             [styles.activePlayer]: activePlayer.name === player2.name,
           })}
         >
@@ -258,6 +266,7 @@ function PlayArea() {
         gridState={gridState}
         selectCell={selectCell}
         winningSequence={winningSequence}
+        symbolColor={symbolColor}
       />
 
       {gameEnd && gameCompleteJsx()}
