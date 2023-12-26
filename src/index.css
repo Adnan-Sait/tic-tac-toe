@@ -2,8 +2,10 @@
   --app-color-primary: #ffb703;
   --app-color-secondary: #444545;
   --app-color-board: #774512;
-  --app-color-text: rgba(0 0 0 / 87%);
+  --app-color-player1: #db5a42;
+  --app-color-player2: #18206f;
   --app-color-player-active: green;
+  --app-color-text: rgba(0 0 0 / 87%);
 }
 
 * {

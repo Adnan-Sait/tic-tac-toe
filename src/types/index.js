@@ -28,3 +28,9 @@
  * @property {"row" | "column" | "diagonal-left" | "diagonal-right"} type
  * @property {Number[][]} sequence
  */
+
+/**
+ * @typedef {Object} SymbolColor
+ * @property {String} x
+ * @property {String} o
+ */
