@@ -7,8 +7,9 @@ import styles from "./PlayGrid.module.css";
  * @param {Object} param0 Props
  * @param {PlayerSymbol[][]} param0.gridState
  * @param {WinningSequence} param0.winningSequence
+ * @param {SymbolColor} param0.symbolColor
  */
-function PlayGrid({ gridState, selectCell, winningSequence }) {
+function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
   const gridRef = useRef();
   const canvasRef = useRef();
 
@@ -61,6 +62,22 @@ function PlayGrid({ gridState, selectCell, winningSequence }) {
       );
     }
   }, [winningSequence, canvasRef.current]);
+
+  useEffect(() => {
+    if (symbolColor && symbolColor.x && symbolColor.o) {
+      const xColor = `var(--app-color-${symbolColor.x})`;
+      const oColor = `var(--app-color-${symbolColor.o})`;
+
+      document.documentElement.style.setProperty(
+        "--board-symbol-color-x",
+        xColor,
+      );
+      document.documentElement.style.setProperty(
+        "--board-symbol-color-o",
+        oColor,
+      );
+    }
+  }, [symbolColor]);
 
   /**
    * Retrieves the grid items from the DOM.
