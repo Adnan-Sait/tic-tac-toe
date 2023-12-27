@@ -1,8 +1,9 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect, useRef } from "react";
 import PlayGrid from "../../components/playGrid/PlayGrid";
 import styles from "./PlayArea.module.css";
 import classNames from "classnames";
 import { isMoveAvailable, checkWinner } from "../../utilities/HelperFunctions";
+import tadaMp3 from "../../assets/tadaa.mp3";
 
 /**
  * @type {PlayerSymbol[][]}
@@ -67,6 +68,8 @@ function saveWinsInStorage(playerKey, winsCount) {
  * Play Area Component.
  */
 function PlayArea() {
+  const audioRef = useRef();
+
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
@@ -168,6 +171,13 @@ function PlayArea() {
       }
     }
   }, [gameEnd, winningSequence]);
+
+  // Plays the audio, when a player wins the game.
+  useEffect(() => {
+    if (gameStatus === "win") {
+      audioRef.current.play();
+    }
+  }, [gameStatus]);
 
   /**
    * Toggles the players turn.
@@ -325,6 +335,8 @@ function PlayArea() {
         winningSequence={winningSequence}
         symbolColor={symbolColor}
       />
+
+      <audio ref={audioRef} src={tadaMp3} />
 
       {gameEnd && gameCompleteJsx()}
     </div>
