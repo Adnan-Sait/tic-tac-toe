@@ -3,11 +3,18 @@
   margin: 2rem auto;
 }
 
-.playerInfo {
+.gameOverview {
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
   background-color: var(--app-color-primary);
   padding: 0.25rem 0.5rem;
+}
+
+.playerInfo {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-around;
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -27,6 +34,23 @@
 
 .player .symbol {
   text-transform: uppercase;
+}
+
+.clearSavedDataSection {
+  margin-bottom: 1rem;
+}
+
+.clearSavedDataSection button {
+  border-color: var(--app-color-secondary);
+  color: var(--app-color-text);
+}
+
+.clearSavedDataSection button:hover {
+  background-color: rgba(0 0 0 / 10%);
+}
+
+.clearSavedDataSection button svg {
+  height: 1.25rem;
 }
 
 .winOverlay {
@@ -49,26 +73,17 @@
   align-items: center;
   gap: 1.5rem;
   font-size: 2rem;
-  color: #fff;
+  color: var(--app-color-white);
 }
 
 .overlayContent .restartBtn {
-  padding: 0.5rem 0.75rem;
-  background-color: transparent;
-  border: 2px solid var(--app-color-primary);
-  color: #fff;
-  border-radius: 5px;
+  color: var(--app-color-white);
   font-size: 1.25rem;
-  cursor: pointer;
-  transition: 0.3s all ease-in-out;
-
-  display: flex;
-  align-items: center;
   gap: 0.75rem;
 }
 
 .overlayContent .restartBtn:hover {
-  background-color: rgba(0 0 0 / 40%);
+  background-color: var(--app-color-btn-hover);
 }
 
 .overlayContent .restartBtn svg {

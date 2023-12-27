@@ -6,6 +6,8 @@
   --app-color-player2: #18206f;
   --app-color-player-active: green;
   --app-color-text: rgba(0 0 0 / 87%);
+  --app-color-btn-hover: rgba(0 0 0 / 40%);
+  --app-color-white: #fff;
 }
 
 * {
@@ -42,4 +44,18 @@ header h1 {
 
   font-size: 4rem;
   letter-spacing: 1px;
+}
+
+.btnOutline {
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  border: 2px solid var(--app-color-primary);
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
