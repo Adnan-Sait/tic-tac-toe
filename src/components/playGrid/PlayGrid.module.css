@@ -83,6 +83,15 @@
   border-radius: 0 0 var(--board-border-size) var(--board-border-size);
 }
 
+/* Removing the border elements at the ends of the grid. */
+.gridItem:nth-child(3n)::after {
+  display: none;
+}
+
+.gridItem:nth-last-child(-n + 3)::before {
+  display: none;
+}
+
 .symbol {
   display: block;
   position: relative;
