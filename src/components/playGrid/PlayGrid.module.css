@@ -42,6 +42,7 @@
   display: block;
   position: absolute;
   background-color: var(--app-color-board);
+  pointer-events: none;
 }
 
 .gridItem::before {
