@@ -19,7 +19,7 @@
 }
 
 .canvas.show {
-  z-index: 2;
+  z-index: 3;
 }
 
 .playGrid {
@@ -43,6 +43,7 @@
   position: absolute;
   background-color: var(--app-color-board);
   pointer-events: none;
+  z-index: 2;
 }
 
 .gridItem::before {
