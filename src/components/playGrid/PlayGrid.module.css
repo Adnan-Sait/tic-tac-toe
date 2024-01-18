@@ -1,5 +1,6 @@
 :root {
   --board-border-size: 10px;
+  --board-border-overlap: 1px;
   --board-symbol-width: 10px;
   --board-symbol-color: var(--app-color-board);
   --board-symbol-color-x: var(--app-color-board);
@@ -48,17 +49,19 @@
 
 .gridItem::before {
   width: 100%;
-  height: var(--board-border-size);
+  /* Added to fix the border gap issue arising in chromium browsers at times. */
+  /* https://github.com/Adnan-Sait/tic-tac-toe/issues/14 */
+  height: calc(var(--board-border-size) + var(--board-border-overlap) + 1px);
   left: 0;
-  bottom: 0;
+  bottom: var(--board-border-overlap);
   translate: 0 100%;
 }
 
 .gridItem::after {
   height: calc(100% + var(--board-border-size));
-  width: var(--board-border-size);
+  width: calc(var(--board-border-size) + var(--board-border-overlap) + 1px);
   top: 0;
-  right: 0;
+  right: var(--board-border-overlap);
   translate: 100% 0;
 }
 
@@ -81,6 +84,15 @@
 .gridItem:nth-child(8):after {
   height: 100%;
   border-radius: 0 0 var(--board-border-size) var(--board-border-size);
+}
+
+/* Removing the border elements at the ends of the grid. */
+.gridItem:nth-child(3n)::after {
+  display: none;
+}
+
+.gridItem:nth-last-child(-n + 3)::before {
+  display: none;
 }
 
 .symbol {
