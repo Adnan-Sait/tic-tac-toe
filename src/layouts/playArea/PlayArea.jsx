@@ -76,7 +76,8 @@ function PlayArea() {
   const [player1, setPlayer1] = useState({
     name: "Player 1",
     wins: getWinsFromStorage("player1"),
-    isTurn: false,
+    isTurn: true,
+    symbol: "x",
   });
   /**
    * @type {[Player, React.Dispatch<Player>]}
@@ -85,22 +86,13 @@ function PlayArea() {
     name: "Player 2",
     wins: getWinsFromStorage("player2"),
     isTurn: false,
+    symbol: "o",
   });
-
-  /**
-   * @type {[String, React.Dispatch<String>]} Specifies which player is playing X.
-   */
-  const [xSymbolPlayer, setXSymbolPlayer] = useState("player1");
 
   /**
    * @type {[PlayerSymbol[][], React.Dispatch<ReducerAction<GridReducerPayload>>]}
    */
   const [gridState, dispatchGrid] = useReducer(gridReducer, gridInitialState);
-
-  /**
-   * @type {[Boolean, React.Dispatch<Boolean>]}
-   */
-  const [gameEnd, setGameEnd] = useState(false);
 
   /**
    * @type {[WinningSequence, React.Dispatch<WinningSequence>]}
@@ -120,44 +112,20 @@ function PlayArea() {
   const gameStatus = checkGameStatus();
 
   useEffect(() => {
+    if (gridState == gridInitialState) return;
+
     const winSequence = checkWinner(gridState);
     if (winSequence) {
       setWinningSequence(winSequence);
-      setGameEnd(true);
     } else if (!isMoveAvailable(gridState)) {
-      setGameEnd(true);
+      setWinningSequence({ type: "" });
     } else {
       togglePlayerTurn();
     }
   }, [gridState]);
 
   useEffect(() => {
-    switch (xSymbolPlayer) {
-      case "player1": {
-        setPlayer1((state) => {
-          return { ...state, symbol: "x", isTurn: true };
-        });
-        setPlayer2((state) => {
-          return { ...state, symbol: "o", isTurn: false };
-        });
-        break;
-      }
-      case "player2": {
-        setPlayer1((state) => {
-          return { ...state, symbol: "o", isTurn: false };
-        });
-        setPlayer2((state) => {
-          return { ...state, symbol: "x", isTurn: true };
-        });
-        break;
-      }
-      default: {
-      }
-    }
-  }, [xSymbolPlayer]);
-
-  useEffect(() => {
-    if (gameEnd && winningSequence?.type) {
+    if (winningSequence?.type) {
       if (activePlayer === player1) {
         setPlayer1((state) => {
           saveWinsInStorage("player1", state.wins + 1);
@@ -170,7 +138,7 @@ function PlayArea() {
         });
       }
     }
-  }, [gameEnd, winningSequence]);
+  }, [winningSequence]);
 
   // Plays the audio, when a player wins the game.
   useEffect(() => {
@@ -214,15 +182,36 @@ function PlayArea() {
    * Handles the restart game button click.
    */
   function handleRestartGameClick() {
-    setGameEnd(false);
     dispatchGrid({ type: "clear-all-cells" });
     setWinningSequence({});
 
-    if (xSymbolPlayer === "player1") {
-      setXSymbolPlayer("player2");
-    } else {
-      setXSymbolPlayer("player1");
-    }
+    setPlayer1((state) => {
+      const playSymbol = getOppositeSymbol(state.symbol);
+      return {
+        ...state,
+        symbol: playSymbol,
+        isTurn: playSymbol === "x",
+      };
+    });
+    setPlayer2((state) => {
+      const playSymbol = getOppositeSymbol(state.symbol);
+      return {
+        ...state,
+        symbol: playSymbol,
+        isTurn: playSymbol === "x",
+      };
+    });
+  }
+
+  /**
+   * Returns the opposite symbol.
+   *
+   * @param {PlayerSymbol} symbol
+   *
+   * @returns {PlayerSymbol}
+   */
+  function getOppositeSymbol(symbol) {
+    return symbol === "x" ? "o" : "x";
   }
 
   /**
@@ -237,9 +226,9 @@ function PlayArea() {
    * Checks game status.
    */
   function checkGameStatus() {
-    if (gameEnd && winningSequence?.type) {
+    if (winningSequence?.type) {
       return "win";
-    } else if (gameEnd) {
+    } else if (winningSequence?.type === "") {
       return "draw";
     } else {
       return "inprogress";
@@ -338,7 +327,7 @@ function PlayArea() {
 
       <audio ref={audioRef} src={tadaMp3} />
 
-      {gameEnd && gameCompleteJsx()}
+      {winningSequence?.type !== undefined && gameCompleteJsx()}
     </div>
   );
 }

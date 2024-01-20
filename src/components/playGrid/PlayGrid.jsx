@@ -6,6 +6,7 @@ import styles from "./PlayGrid.module.css";
  *
  * @param {Object} param0 Props
  * @param {PlayerSymbol[][]} param0.gridState
+ * @param {Function} param0.selectCell
  * @param {WinningSequence} param0.winningSequence
  * @param {SymbolColor} param0.symbolColor
  */
@@ -49,6 +50,7 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
         return index;
       });
 
+      // Picking the first index and last index of the winning sequence.
       drawLineOnGrid(indicies1D[0], indicies1D.at(-1), winningSequence.type);
     } else {
       canvasRef.current.classList.remove(styles.show);
@@ -63,6 +65,13 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
     }
   }, [winningSequence, canvasRef.current]);
 
+  /**
+   * Maps the player color to the particular symbol.
+   *
+   * Example:
+   * X --> Player 1
+   * O --> Player 2
+   */
   useEffect(() => {
     if (symbolColor && symbolColor.x && symbolColor.o) {
       const xColor = `var(--app-color-${symbolColor.x})`;
@@ -200,6 +209,7 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
    * @param {Number} index Index of the selected cell.
    */
   function cellSelectHandler(event, index) {
+    // if the cell is already selected, do nothing.
     if (gridState1D[index] !== "") return;
 
     const row = Math.floor(index / 3);
