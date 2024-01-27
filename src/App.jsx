@@ -1,4 +1,3 @@
-import './App.css';
 import PlayArea from './layouts/playArea/PlayArea';
 
 function App() {
