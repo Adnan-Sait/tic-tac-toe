@@ -1,9 +1,12 @@
 import React, { useState, useReducer, useEffect, useRef } from 'react';
-import PlayGrid from '../../components/playGrid/PlayGrid';
-import styles from './PlayArea.module.css';
 import classNames from 'classnames';
+
+import PlayGrid from '../../components/playGrid/PlayGrid';
 import { isMoveAvailable, checkWinner } from '../../utilities/HelperFunctions';
+
 import tadaMp3 from '../../assets/tadaa.mp3';
+
+import styles from './PlayArea.module.css';
 
 /**
  * @type {PlayerSymbol[][]}
