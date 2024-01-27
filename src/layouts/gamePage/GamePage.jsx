@@ -1,8 +1,8 @@
 import React, { useState, useReducer, useEffect, useRef } from "react";
-import PlayGrid from "../../components/playGrid/PlayGrid";
-import styles from "./PlayArea.module.css";
 import classNames from "classnames";
+import PlayGrid from "../../components/playGrid/PlayGrid";
 import { isMoveAvailable, checkWinner } from "../../utilities/HelperFunctions";
+import styles from "./GamePage.module.css";
 import tadaMp3 from "../../assets/tadaa.mp3";
 
 /**
@@ -67,7 +67,7 @@ function saveWinsInStorage(playerKey, winsCount) {
 /**
  * Play Area Component.
  */
-function PlayArea() {
+function GamePage() {
   const audioRef = useRef();
 
   /**
@@ -332,4 +332,4 @@ function PlayArea() {
   );
 }
 
-export default PlayArea;
+export default GamePage;
