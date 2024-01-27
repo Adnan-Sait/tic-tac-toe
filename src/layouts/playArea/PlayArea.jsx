@@ -1,17 +1,17 @@
-import React, { useState, useReducer, useEffect, useRef } from "react";
-import PlayGrid from "../../components/playGrid/PlayGrid";
-import styles from "./PlayArea.module.css";
-import classNames from "classnames";
-import { isMoveAvailable, checkWinner } from "../../utilities/HelperFunctions";
-import tadaMp3 from "../../assets/tadaa.mp3";
+import React, { useState, useReducer, useEffect, useRef } from 'react';
+import PlayGrid from '../../components/playGrid/PlayGrid';
+import styles from './PlayArea.module.css';
+import classNames from 'classnames';
+import { isMoveAvailable, checkWinner } from '../../utilities/HelperFunctions';
+import tadaMp3 from '../../assets/tadaa.mp3';
 
 /**
  * @type {PlayerSymbol[][]}
  */
 const gridInitialState = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
+  ['', '', ''],
+  ['', '', ''],
+  ['', '', ''],
 ];
 
 /**
@@ -24,7 +24,7 @@ function gridReducer(state, action) {
   const { type, payload } = action;
   let tempState;
   switch (type) {
-    case "select-cell": {
+    case 'select-cell': {
       if (payload.cellIndex?.length === 2 && payload.player) {
         tempState = structuredClone(state);
         tempState[payload.cellIndex[0]][payload.cellIndex[1]] =
@@ -32,7 +32,7 @@ function gridReducer(state, action) {
       }
       break;
     }
-    case "clear-all-cells": {
+    case 'clear-all-cells': {
       tempState = gridInitialState;
       break;
     }
@@ -74,19 +74,19 @@ function PlayArea() {
    * @type {[Player, React.Dispatch<Player>]}
    */
   const [player1, setPlayer1] = useState({
-    name: "Player 1",
-    wins: getWinsFromStorage("player1"),
+    name: 'Player 1',
+    wins: getWinsFromStorage('player1'),
     isTurn: true,
-    symbol: "x",
+    symbol: 'x',
   });
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
   const [player2, setPlayer2] = useState({
-    name: "Player 2",
-    wins: getWinsFromStorage("player2"),
+    name: 'Player 2',
+    wins: getWinsFromStorage('player2'),
     isTurn: false,
-    symbol: "o",
+    symbol: 'o',
   });
 
   /**
@@ -105,8 +105,8 @@ function PlayArea() {
    * @type {SymbolColor} Specifies the color for each symbol.
    */
   const symbolColor = {
-    [player1.symbol]: "player1",
-    [player2.symbol]: "player2",
+    [player1.symbol]: 'player1',
+    [player2.symbol]: 'player2',
   };
 
   const gameStatus = checkGameStatus();
@@ -118,7 +118,7 @@ function PlayArea() {
     if (winSequence) {
       setWinningSequence(winSequence);
     } else if (!isMoveAvailable(gridState)) {
-      setWinningSequence({ type: "" });
+      setWinningSequence({ type: '' });
     } else {
       togglePlayerTurn();
     }
@@ -128,12 +128,12 @@ function PlayArea() {
     if (winningSequence?.type) {
       if (activePlayer === player1) {
         setPlayer1((state) => {
-          saveWinsInStorage("player1", state.wins + 1);
+          saveWinsInStorage('player1', state.wins + 1);
           return { ...state, wins: state.wins + 1 };
         });
       } else if (activePlayer === player2) {
         setPlayer2((state) => {
-          saveWinsInStorage("player2", state.wins + 1);
+          saveWinsInStorage('player2', state.wins + 1);
           return { ...state, wins: state.wins + 1 };
         });
       }
@@ -142,7 +142,7 @@ function PlayArea() {
 
   // Plays the audio, when a player wins the game.
   useEffect(() => {
-    if (gameStatus === "win") {
+    if (gameStatus === 'win') {
       audioRef.current.play();
     }
   }, [gameStatus]);
@@ -169,7 +169,7 @@ function PlayArea() {
      * @type {ReducerAction<GridReducerPayload>}
      */
     const action = {
-      type: "select-cell",
+      type: 'select-cell',
       payload: {
         player: activePlayer,
         cellIndex: index,
@@ -182,7 +182,7 @@ function PlayArea() {
    * Handles the restart game button click.
    */
   function handleRestartGameClick() {
-    dispatchGrid({ type: "clear-all-cells" });
+    dispatchGrid({ type: 'clear-all-cells' });
     setWinningSequence({});
 
     setPlayer1((state) => {
@@ -190,7 +190,7 @@ function PlayArea() {
       return {
         ...state,
         symbol: playSymbol,
-        isTurn: playSymbol === "x",
+        isTurn: playSymbol === 'x',
       };
     });
     setPlayer2((state) => {
@@ -198,7 +198,7 @@ function PlayArea() {
       return {
         ...state,
         symbol: playSymbol,
-        isTurn: playSymbol === "x",
+        isTurn: playSymbol === 'x',
       };
     });
   }
@@ -211,7 +211,7 @@ function PlayArea() {
    * @returns {PlayerSymbol}
    */
   function getOppositeSymbol(symbol) {
-    return symbol === "x" ? "o" : "x";
+    return symbol === 'x' ? 'o' : 'x';
   }
 
   /**
@@ -227,11 +227,11 @@ function PlayArea() {
    */
   function checkGameStatus() {
     if (winningSequence?.type) {
-      return "win";
-    } else if (winningSequence?.type === "") {
-      return "draw";
+      return 'win';
+    } else if (winningSequence?.type === '') {
+      return 'draw';
     } else {
-      return "inprogress";
+      return 'inprogress';
     }
   }
 
@@ -242,11 +242,11 @@ function PlayArea() {
     return (
       <div className={styles.winOverlay}>
         <div className={styles.overlayContent}>
-          {gameStatus === "win" && <p>Congratulations: {activePlayer.name}</p>}
-          {gameStatus === "draw" && <p>Draw!!</p>}
+          {gameStatus === 'win' && <p>Congratulations: {activePlayer.name}</p>}
+          {gameStatus === 'draw' && <p>Draw!!</p>}
 
           <button
-            className={classNames(styles.restartBtn, "btnOutline")}
+            className={classNames(styles.restartBtn, 'btnOutline')}
             tabIndex={0}
             onClick={handleRestartGameClick}
           >
