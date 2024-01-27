@@ -39,7 +39,7 @@
 
 .gridItem::before,
 .gridItem::after {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   background-color: var(--app-color-board);
@@ -49,7 +49,9 @@
 
 .gridItem::before {
   width: 100%;
+
   /* Added to fix the border gap issue arising in chromium browsers at times. */
+
   /* https://github.com/Adnan-Sait/tic-tac-toe/issues/14 */
   height: calc(var(--board-border-size) + var(--board-border-overlap) + 1px);
   left: 0;
@@ -65,23 +67,23 @@
   translate: 100% 0;
 }
 
-.gridItem:nth-child(1):before,
-.gridItem:nth-child(4):before {
+.gridItem:nth-child(1)::before,
+.gridItem:nth-child(4)::before {
   border-radius: var(--board-border-size) 0 0 var(--board-border-size);
 }
 
-.gridItem:nth-child(3):before,
-.gridItem:nth-child(6):before {
+.gridItem:nth-child(3)::before,
+.gridItem:nth-child(6)::before {
   border-radius: 0 var(--board-border-size) var(--board-border-size) 0;
 }
 
-.gridItem:nth-child(1):after,
-.gridItem:nth-child(2):after {
+.gridItem:nth-child(1)::after,
+.gridItem:nth-child(2)::after {
   border-radius: var(--board-border-size) var(--board-border-size) 0 0;
 }
 
-.gridItem:nth-child(7):after,
-.gridItem:nth-child(8):after {
+.gridItem:nth-child(7)::after,
+.gridItem:nth-child(8)::after {
   height: 100%;
   border-radius: 0 0 var(--board-border-size) var(--board-border-size);
 }
@@ -103,7 +105,7 @@
 
 .symbol::before,
 .symbol::after {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   top: 50%;
@@ -111,24 +113,24 @@
   translate: -50% -50%;
 }
 
-.symbol[data-symbol="o"]::after {
+.symbol[data-symbol='o']::after {
   height: 45%;
   border: var(--board-border-size) solid var(--board-symbol-color-o);
   border-radius: 50%;
   aspect-ratio: 1;
 }
 
-.symbol[data-symbol="x"]::before,
-.symbol[data-symbol="x"]::after {
+.symbol[data-symbol='x']::before,
+.symbol[data-symbol='x']::after {
   height: 80%;
   width: var(--board-border-size);
   background-color: var(--board-symbol-color-x);
 }
 
-.symbol[data-symbol="x"]::before {
+.symbol[data-symbol='x']::before {
   rotate: 45deg;
 }
 
-.symbol[data-symbol="x"]::after {
+.symbol[data-symbol='x']::after {
   rotate: -45deg;
 }

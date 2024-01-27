@@ -20,28 +20,24 @@
 body {
   background-color: var(--app-color-primary);
   background-image: radial-gradient(
-      var(--app-color-secondary) 0.7000000000000001px,
-      transparent 0.7000000000000001px
+      var(--app-color-secondary) 0.7001px,
+      transparent 0.7001px
     ),
     radial-gradient(
-      var(--app-color-secondary) 0.7000000000000001px,
-      var(--app-color-primary) 0.7000000000000001px
+      var(--app-color-secondary) 0.7001px,
+      var(--app-color-primary) 0.7001px
     );
   background-size: 28px 28px;
   background-position:
     0 0,
     14px 14px;
-}
-
-body {
   color: var(--app-color-text);
-  font-family: "Amatic SC", "Roboto", "Sarabun", sans-serif;
+  font-family: 'Amatic SC', Roboto, Sarabun, sans-serif;
 }
 
 header h1 {
   text-align: center;
   padding-top: 0.75rem;
-
   font-size: 4rem;
   letter-spacing: 1px;
 }
@@ -54,7 +50,6 @@ header h1 {
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s all ease-in-out;
-
   display: flex;
   align-items: center;
   gap: 0.5rem;
