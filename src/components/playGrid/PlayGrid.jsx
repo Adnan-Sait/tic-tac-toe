@@ -1,5 +1,5 @@
-import { useRef, useEffect } from "react";
-import styles from "./PlayGrid.module.css";
+import { useRef, useEffect } from 'react';
+import styles from './PlayGrid.module.css';
 
 /**
  * Play Grid
@@ -55,7 +55,7 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
     } else {
       canvasRef.current.classList.remove(styles.show);
 
-      const context = canvasRef.current.getContext("2d");
+      const context = canvasRef.current.getContext('2d');
       context.clearRect(
         0,
         0,
@@ -78,11 +78,11 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
       const oColor = `var(--app-color-${symbolColor.o})`;
 
       document.documentElement.style.setProperty(
-        "--board-symbol-color-x",
+        '--board-symbol-color-x',
         xColor,
       );
       document.documentElement.style.setProperty(
-        "--board-symbol-color-o",
+        '--board-symbol-color-o',
         oColor,
       );
     }
@@ -133,11 +133,11 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
 
     if (!startGridItemEl || !endGridItemEl) return;
 
-    const ctx = canvasRef.current.getContext("2d");
+    const ctx = canvasRef.current.getContext('2d');
 
-    ctx.strokeStyle = "green";
+    ctx.strokeStyle = 'green';
     ctx.lineWidth = 8;
-    ctx.lineCap = "round";
+    ctx.lineCap = 'round';
 
     const { left: canvasLeft, top: canvasTop } =
       canvasRef.current.getBoundingClientRect();
@@ -154,28 +154,28 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
      * Setting coordinates based on the direction and orientation of the winning sequence.
      */
     switch (strokeDirection) {
-      case "row": {
+      case 'row': {
         startX = startDimensions.left;
         startY = startDimensions.top + startDimensions.height / 2;
         endX = endDimensions.right;
         endY = endDimensions.top + endDimensions.height / 2;
         break;
       }
-      case "column": {
+      case 'column': {
         startX = startDimensions.left + startDimensions.width / 2;
         startY = startDimensions.top;
         endX = endDimensions.left + endDimensions.width / 2;
         endY = endDimensions.bottom;
         break;
       }
-      case "diagonal-left": {
+      case 'diagonal-left': {
         startX = startDimensions.left;
         startY = startDimensions.top;
         endX = endDimensions.right;
         endY = endDimensions.bottom;
         break;
       }
-      case "diagonal-right": {
+      case 'diagonal-right': {
         startX = startDimensions.right;
         startY = startDimensions.top;
         endX = endDimensions.left;
@@ -210,7 +210,7 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
    */
   function cellSelectHandler(event, index) {
     // if the cell is already selected, do nothing.
-    if (gridState1D[index] !== "") return;
+    if (gridState1D[index] !== '') return;
 
     const row = Math.floor(index / 3);
     const column = index % 3;
