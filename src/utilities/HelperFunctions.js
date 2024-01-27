@@ -1,3 +1,5 @@
+import { getWinsFromStorage } from './localStorageUtils';
+
 /**
  * Checks if there is a winner.
  *
@@ -98,4 +100,34 @@ export function isMoveAvailable(grid) {
   const grid1d = [].concat(...grid);
 
   return grid1d.some((val) => val === '');
+}
+
+/**
+ * Creates the player object.
+ *
+ * @param {String} name Player Name
+ * @param {PlayerSymbol} symbol Player Symbol
+ * @param {Boolean} isTurn Player turn flag
+ * @returns {Player} player object
+ */
+export function generatePlayer(name, symbol, isTurn) {
+  const playerKey = generatePlayerKey(name);
+  const wins = getWinsFromStorage(playerKey);
+
+  return {
+    name,
+    wins,
+    symbol,
+    isTurn,
+  };
+}
+
+/**
+ * Generates a player key from the name.
+ * Converts to lowercase and replaces whitespace characters.
+ *
+ * @param {String} playerName Player Name
+ */
+function generatePlayerKey(playerName = '') {
+  return playerName.toLowerCase().replace(/\s/g, '');
 }

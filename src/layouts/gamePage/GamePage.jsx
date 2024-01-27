@@ -2,11 +2,16 @@ import React, { useState, useReducer, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import PlayGrid from '../../components/playGrid/PlayGrid';
-import { isMoveAvailable, checkWinner } from '../../utilities/HelperFunctions';
-
-import tadaMp3 from '../../assets/tadaa.mp3';
+import {
+  isMoveAvailable,
+  checkWinner,
+  generatePlayer,
+} from '../../utilities/helperFunctions';
+import { saveWinsInStorage } from '../../utilities/localStorageUtils';
 
 import styles from './GamePage.module.css';
+
+import tadaMp3 from '../../assets/tadaa.mp3';
 
 /**
  * @type {PlayerSymbol[][]}
@@ -45,52 +50,24 @@ function gridReducer(state, action) {
 }
 
 /**
- * Retrieves wins count from local storage.
- *
- * @param {String} playerKey Player Key.
- *
- * @return {String} Wins Count.
- */
-function getWinsFromStorage(playerKey) {
-  const count = localStorage.getItem(playerKey);
-
-  return count ? Number.parseInt(count) : 0;
-}
-
-/**
- * Retrieves wins count from local storage.
- *
- * @param {String} playerKey Player Key.
- * @param {Number} winsCount Wins Count.
- */
-function saveWinsInStorage(playerKey, winsCount) {
-  localStorage.setItem(playerKey, winsCount.toString());
-}
-
-/**
  * Game Page Component.
  */
 function GamePage() {
+  /**
+   * @type {import('react').RefObject<HTMLAudioElement>}
+   */
   const audioRef = useRef();
 
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
-  const [player1, setPlayer1] = useState({
-    name: 'Player 1',
-    wins: getWinsFromStorage('player1'),
-    isTurn: true,
-    symbol: 'x',
-  });
+  const [player1, setPlayer1] = useState(generatePlayer('Player 1', 'x', true));
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
-  const [player2, setPlayer2] = useState({
-    name: 'Player 2',
-    wins: getWinsFromStorage('player2'),
-    isTurn: false,
-    symbol: 'o',
-  });
+  const [player2, setPlayer2] = useState(
+    generatePlayer('Player 2', 'o', false),
+  );
 
   /**
    * @type {[PlayerSymbol[][], React.Dispatch<ReducerAction<GridReducerPayload>>]}
@@ -105,6 +82,11 @@ function GamePage() {
   const activePlayer = player1.isTurn ? player1 : player2;
 
   /**
+   * @type {HTMLAudioElement}
+   */
+  const audioEl = audioRef.current || {};
+
+  /**
    * @type {SymbolColor} Specifies the color for each symbol.
    */
   const symbolColor = {
@@ -114,6 +96,13 @@ function GamePage() {
 
   const gameStatus = checkGameStatus();
 
+  /**
+   * Executed when the gridState changes.
+   * Checks if a player has won or if all moves are exhausted.
+   * If not, toggles the player's turn.
+   *
+   * The code logic does not run on mount.
+   */
   useEffect(() => {
     if (gridState == gridInitialState) return;
 
@@ -146,7 +135,7 @@ function GamePage() {
   // Plays the audio, when a player wins the game.
   useEffect(() => {
     if (gameStatus === 'win') {
-      audioRef.current.play();
+      audioEl.play();
     }
   }, [gameStatus]);
 
