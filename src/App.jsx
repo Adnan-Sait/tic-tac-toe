@@ -1,9 +1,9 @@
-import PlayArea from './layouts/playArea/PlayArea';
+import GamePage from './layouts/gamePage/GamePage';
 
 function App() {
   return (
     <div className="App">
-      <PlayArea />
+      <GamePage />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { isMoveAvailable, checkWinner } from '../../utilities/HelperFunctions';
 
 import tadaMp3 from '../../assets/tadaa.mp3';
 
-import styles from './PlayArea.module.css';
+import styles from './GamePage.module.css';
 
 /**
  * @type {PlayerSymbol[][]}
@@ -68,9 +68,9 @@ function saveWinsInStorage(playerKey, winsCount) {
 }
 
 /**
- * Play Area Component.
+ * Game Page Component.
  */
-function PlayArea() {
+function GamePage() {
   const audioRef = useRef();
 
   /**
@@ -335,4 +335,4 @@ function PlayArea() {
   );
 }
 
-export default PlayArea;
+export default GamePage;
