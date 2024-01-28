@@ -107,10 +107,9 @@ export function isMoveAvailable(grid) {
  *
  * @param {String} name Player Name
  * @param {PlayerSymbol} symbol Player Symbol
- * @param {Boolean} isTurn Player turn flag
  * @returns {Player} player object
  */
-export function generatePlayer(name, symbol, isTurn) {
+export function generatePlayer(name, symbol) {
   const playerKey = generatePlayerKey(name);
   const wins = getWinsFromStorage(playerKey);
 
@@ -118,8 +117,18 @@ export function generatePlayer(name, symbol, isTurn) {
     name,
     wins,
     symbol,
-    isTurn,
   };
+}
+
+/**
+ * Returns the opposite symbol.
+ *
+ * @param {PlayerSymbol} symbol
+ *
+ * @returns {PlayerSymbol}
+ */
+export function getOppositeSymbol(symbol) {
+  return symbol === 'x' ? 'o' : 'x';
 }
 
 /**

@@ -7,7 +7,6 @@
  * @property {String} name
  * @property {Number} wins
  * @property {PlayerSymbol} symbol
- * @property {Boolean} isTurn
  */
 
 /**

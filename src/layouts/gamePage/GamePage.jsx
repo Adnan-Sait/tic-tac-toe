@@ -6,6 +6,7 @@ import {
   isMoveAvailable,
   checkWinner,
   generatePlayer,
+  getOppositeSymbol,
 } from '../../utilities/helperFunctions';
 import { saveWinsInStorage } from '../../utilities/localStorageUtils';
 
@@ -58,15 +59,19 @@ function GamePage() {
    */
   const audioRef = useRef();
 
+  const [activeSymbol, setActiveSymbol] = useState('x');
+
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
-  const [player1, setPlayer1] = useState(generatePlayer('Player 1', 'x', true));
+  const [player1, setPlayer1] = useState(
+    generatePlayer('Player 1', activeSymbol),
+  );
   /**
    * @type {[Player, React.Dispatch<Player>]}
    */
   const [player2, setPlayer2] = useState(
-    generatePlayer('Player 2', 'o', false),
+    generatePlayer('Player 2', getOppositeSymbol(activeSymbol)),
   );
 
   /**
@@ -79,7 +84,7 @@ function GamePage() {
    */
   const [winningSequence, setWinningSequence] = useState({});
 
-  const activePlayer = player1.isTurn ? player1 : player2;
+  const activePlayer = getActivePlayer();
 
   /**
    * @type {HTMLAudioElement}
@@ -140,15 +145,23 @@ function GamePage() {
   }, [gameStatus]);
 
   /**
+   * Returns the active player.
+   *
+   * @returns {Player} Active Player
+   */
+  function getActivePlayer() {
+    if (player1.symbol === activeSymbol) {
+      return player1;
+    }
+
+    return player2;
+  }
+
+  /**
    * Toggles the players turn.
    */
   function togglePlayerTurn() {
-    setPlayer1((state) => {
-      return { ...state, isTurn: !state.isTurn };
-    });
-    setPlayer2((state) => {
-      return { ...state, isTurn: !state.isTurn };
-    });
+    setActiveSymbol((state) => getOppositeSymbol(state));
   }
 
   /**
@@ -176,13 +189,13 @@ function GamePage() {
   function handleRestartGameClick() {
     dispatchGrid({ type: 'clear-all-cells' });
     setWinningSequence({});
+    setActiveSymbol('x');
 
     setPlayer1((state) => {
       const playSymbol = getOppositeSymbol(state.symbol);
       return {
         ...state,
         symbol: playSymbol,
-        isTurn: playSymbol === 'x',
       };
     });
     setPlayer2((state) => {
@@ -190,20 +203,8 @@ function GamePage() {
       return {
         ...state,
         symbol: playSymbol,
-        isTurn: playSymbol === 'x',
       };
     });
-  }
-
-  /**
-   * Returns the opposite symbol.
-   *
-   * @param {PlayerSymbol} symbol
-   *
-   * @returns {PlayerSymbol}
-   */
-  function getOppositeSymbol(symbol) {
-    return symbol === 'x' ? 'o' : 'x';
   }
 
   /**
