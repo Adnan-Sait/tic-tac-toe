@@ -3,56 +3,6 @@
   margin: 2rem auto;
 }
 
-.gameOverview {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--app-color-primary);
-  padding: 0.25rem 0.5rem;
-}
-
-.playerInfo {
-  align-self: stretch;
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.player.player1 {
-  color: var(--app-color-player1);
-}
-
-.player.player2 {
-  color: var(--app-color-player2);
-}
-
-.player.activePlayer {
-  color: var(--app-color-player-active);
-}
-
-.player .symbol {
-  text-transform: uppercase;
-}
-
-.clearSavedDataSection {
-  margin-bottom: 1rem;
-}
-
-.clearSavedDataSection button {
-  border-color: var(--app-color-secondary);
-  color: var(--app-color-text);
-}
-
-.clearSavedDataSection button:hover {
-  background-color: rgba(0 0 0 / 10%);
-}
-
-.clearSavedDataSection button svg {
-  height: 1.25rem;
-}
-
 .winOverlay {
   position: fixed;
   top: 0;
