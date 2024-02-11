@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './PlayGrid.module.css';
 
 /**
@@ -238,5 +239,12 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
     </div>
   );
 }
+
+PlayGrid.propTypes = {
+  gridState: PropTypes.array.isRequired,
+  selectCell: PropTypes.func.isRequired,
+  winningSequence: PropTypes.object.isRequired,
+  symbolColor: PropTypes.object.isRequired,
+};
 
 export default PlayGrid;

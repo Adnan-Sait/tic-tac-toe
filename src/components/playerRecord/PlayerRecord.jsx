@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './PlayerRecord.module.css';
 
@@ -58,3 +59,9 @@ export default function PlayerRecord({ player1, player2, activePlayer }) {
     </div>
   );
 }
+
+PlayerRecord.propTypes = {
+  player1: PropTypes.object.isRequired,
+  player2: PropTypes.object.isRequired,
+  activePlayer: PropTypes.object.isRequired,
+};
