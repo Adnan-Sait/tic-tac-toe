@@ -144,6 +144,7 @@ function GamePage() {
   // Plays the audio, when a player wins the game.
   useEffect(() => {
     if (gameStatus === 'win') {
+      audioEl.currentTime = 0;
       audioEl.play();
     }
   }, [gameStatus]);
@@ -194,6 +195,7 @@ function GamePage() {
     dispatchGrid({ type: 'clear-all-cells' });
     setWinningSequence({});
     setActiveSymbol('x');
+    audioEl.pause();
 
     setPlayer1((state) => {
       const playSymbol = getOppositeSymbol(state.symbol);
@@ -274,6 +276,7 @@ function GamePage() {
         symbolColor={symbolColor}
       />
 
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio ref={audioRef} src={tadaMp3} />
 
       {winningSequence?.type !== undefined && gameCompleteJsx()}
