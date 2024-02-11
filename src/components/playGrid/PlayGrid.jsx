@@ -64,7 +64,7 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
         canvasRef.current.height,
       );
     }
-  }, [winningSequence, canvasRef.current]);
+  }, [winningSequence]);
 
   /**
    * Maps the player color to the particular symbol.
