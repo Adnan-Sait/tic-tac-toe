@@ -110,7 +110,7 @@ function GamePage() {
    * The code logic does not run on mount.
    */
   useEffect(() => {
-    if (gridState == gridInitialState) return;
+    if (gridState === gridInitialState) return;
 
     const winSequence = checkWinner(gridState);
     if (winSequence) {
@@ -122,6 +122,9 @@ function GamePage() {
     }
   }, [gridState]);
 
+  /**
+   * Saves the wins count for the player.
+   */
   useEffect(() => {
     if (winningSequence?.type) {
       if (activePlayer === player1) {
