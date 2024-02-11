@@ -225,11 +225,14 @@ function PlayGrid({ gridState, selectCell, winningSequence, symbolColor }) {
       <section ref={gridRef} className={styles.playGrid}>
         {gridState1D.map((val, index) => {
           return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div
               key={index}
               className={styles.gridItem}
               data-selector="grid-item"
               onClick={(event) => cellSelectHandler(event, index)}
+              role="button"
+              tabIndex={-1}
             >
               {val && <span className={styles.symbol} data-symbol={val} />}
             </div>
